@@ -7,20 +7,22 @@ Notes for Latest Cisco vulns
 ### Vulnerability Background
 CDP is a Cisco proprietary Layer 2 (Data Link Layer) network protocol that is used to discover information about locally attached Cisco equipment. CDP is implemented in virtually all Cisco products including switches, routers, IP phones and cameras. Cisco devices ship from the factory with CDP enabled and some of them like VOIP phones rely on the protocol to function properly.  
 CDP packets should be terminated by each switch. CDP packets have a designated multicast address to which they are sent (01:00:0C:CC:CC:CC), and each CDP-capable switch captures packets sent to this MAC address, and does not forward them throughout the network. Thus, in a CDP-capable network, an attacker can only trigger the above vulnerability by sending CDP packets when it is directly connected to a target device. 
-In the case of VOIP though an additional flaw was discovered in the parsing mechanism of CDP packets, enhancing the impact an attacker can achieve using the vulnerability. The CDP implementation in the VoIP phones doesn’t validate the destination MAC address of incoming CDP packets, and accepts CDP packets containing unicast/broadcast destination address as well. Any CDP packet that is sent to a switch that is destined to the designated CDP multicast MAC address, will be forwarded by the switch, and not terminated by it. Due to this discrepancy, an attacker can trigger the vulnerability described above by a unicast packet sent directly to target device, or by a broadcast packet sent to all devices in the LAN -- without needing to send the packet directly from the switch to which an VoIP phones is connected to.  
+
+In the case of VOIP an additional flaw was discovered in the parsing mechanism of CDP packets, enhancing the impact an attacker can achieve using the vulnerability. The VOIP systems referenced in the whitepaper were Cisco-88xx and 78xx. The CDP implementation in the VoIP phones doesn’t validate the destination MAC address of incoming CDP packets, and accepts CDP packets containing unicast/broadcast destination address as well. Any CDP packet that is sent to a switch that is destined to the designated CDP multicast MAC address, will be forwarded by the switch, and not terminated by it. Due to this discrepancy, an attacker can trigger the vulnerability described above by a unicast packet sent directly to target device, or by a broadcast packet sent to all devices in the LAN -- without needing to send the packet directly from the switch to which an VoIP phones is connected to.  
 
 ### Synopsis on vulnerable devices 
 Switches
 NX-OS Stack Overflow in the Power Request TLV (CVE-2020-3119) <- Exploitable (32 bit) with ASLR 
+
+Routers
 IOS XR Format String vulnerability in multiple TLVs (CVE-2020-3118)  --- Old IOS XRs are QNX without ASLR and are vulnerable.   Latest version is based on Windriver Linux, the CDP process is 64-bit and ASLR is enabled, so not “trivially” exploitable if at all.
 
 IP Phones Stack Overflow in PortID TLV (CVE-2020-3111) - Cisco-88xx and 78xx VoIP Phones run Linux and the cdp daemon is executed with root privileges.  The only validation of the ethernet header fields is of the source MAC address, which is validated to be any address that isn’t the address of the device itself.  That’s why unicast or broadcast packets work. 
 
-For CDP on the Cisco IP Cameras, CDP packets are terminated by each switch. In such a network, an attacker can thus only trigger the vulnerability by sending CDP packets when it is directly connected to a target IP camera, which would mean running his attack from the camera’s access switch. In a network that isn’t comprised of Cisco switches, CDP packets may not be terminated at each switch, and an attacker may send the multicast CDP packet to any IP camera in the LAN
+Cisco IP Cameras, as CDP packets are terminated by each switch. In such a network, an attacker can thus only trigger the vulnerability by sending CDP packets when it is directly connected to a target IP camera, which would mean running his attack from the camera’s access switch. In a network that isn’t comprised of Cisco switches, CDP packets may not be terminated at each switch, and an attacker may send the multicast CDP packet to any IP camera in the LAN.
 
 ### Testing 
-In the environment if the tester is not located on a local network or plugged directly into a network device exploitability would be impossible in all systems but the VOIP phones.  For Layer 3 testing Cisco devices can be scanned for using known ports and SNMP scans.      
-
+In the environment if the tester is not located on a local network or plugged directly into a network device exploitability would be impossible in all systems but the VOIP phones.  For Layer 3 testing Cisco devices can be scanned for using known management ports and SNMP scans.      
 
 ### Analysis
 An organization could find vulnerable devices through accessing their purchase records/licenses from Cisco.  Even if the tester was to find external vulnerable assets there may others that they cannot access.  Attackers with inside access to the systems may be at the actual level to perform exploitation.  

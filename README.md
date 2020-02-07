@@ -29,7 +29,7 @@ An organization could find vulnerable devices through accessing their purchase r
 ### DCNM CISCO VULNS NOTES
 
 ### SUMMARY 
-According to [Threatpost]https://threatpost.com/cisco-dcnm-flaw-exploit/151949/ proof-of-concept exploit code has been published for critical flaws impacting the Cisco Data Center Network Manager (DCNM) tool for managing network platforms and switches.  CVE-2019-15975, CVE-2019-15976, CVE-2019-15977 impact DCNM, a platform for managing Cisco data centers that run Cisco’s NX-OS — the network operating system used by Cisco’s Nexus-series Ethernet switches and MDS-series Fibre Channel storage area network switches.
+According to [Threatpost](https://threatpost.com/cisco-dcnm-flaw-exploit/151949/) proof-of-concept exploit code has been published for critical flaws impacting the Cisco Data Center Network Manager (DCNM) tool for managing network platforms and switches.  CVE-2019-15975, CVE-2019-15976, CVE-2019-15977 impact DCNM, a platform for managing Cisco data centers that run Cisco’s NX-OS — the network operating system used by Cisco’s Nexus-series Ethernet switches and MDS-series Fibre Channel storage area network switches.
 
 Cisco has released an [update and advisory]( https://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-20200102-dcnm-auth-bypass) for the DCNM vulnerabilities.  
 

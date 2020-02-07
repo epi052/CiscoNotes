@@ -15,6 +15,7 @@ NX-OS Stack Overflow in the Power Request TLV (CVE-2020-3119) <- Exploitable (32
 IOS XR Format String vulnerability in multiple TLVs (CVE-2020-3118)  --- Old IOS XRs are QNX without ASLR and are vulnerable.   Latest version is based on Windriver Linux, the CDP process is 64-bit and ASLR is enabled, so not “trivially” exploitable if at all.
 
 IP Phones Stack Overflow in PortID TLV (CVE-2020-3111) - Cisco-88xx and 78xx VoIP Phones run Linux and the cdp daemon is executed with root privileges.  The only validation of the ethernet header fields is of the source MAC address, which is validated to be any address that isn’t the address of the device itself.  That’s why unicast or broadcast packets work. 
+
 For CDP on the Cisco IP Cameras, CDP packets are terminated by each switch. In such a network, an attacker can thus only trigger the vulnerability by sending CDP packets when it is directly connected to a target IP camera, which would mean running his attack from the camera’s access switch. In a network that isn’t comprised of Cisco switches, CDP packets may not be terminated at each switch, and an attacker may send the multicast CDP packet to any IP camera in the LAN
 
 ### Testing 
